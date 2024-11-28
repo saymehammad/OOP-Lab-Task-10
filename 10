@@ -1,0 +1,114 @@
+Encapsulation in Python
+Encapsulation is an essential concept in object-oriented programming (OOP). It refers to bundling data (attributes) and methods (functions) that operate on the data into a single unit, typically a class. One of the main goals of encapsulation is to hide the internal representation of an object from the outside world. It restricts direct access to some of an object's components and only exposes a controlled interface for interaction.
+
+Benefits of Encapsulation:
+Data Protection: It helps protect the internal state of an object by preventing unauthorized access and modification.
+Controlled Access: Provides a controlled way to access and modify an object's attributes via getter and setter methods.
+Abstraction: It hides the internal details of an object and exposes only the necessary parts of it.
+Improved Maintainability: Changes to an object's internal representation can be made without affecting external code that uses the class.
+Python Access Specifiers:
+Public Attributes: These can be accessed directly from outside the class.
+Private Attributes: Denoted by a double underscore (__), these cannot be accessed directly from outside the class.
+Protected Attributes: Denoted by a single underscore (_), these are intended for internal use but are still accessible from outside.
+Example Demonstrating Encapsulation in Python:
+python
+Copy code
+class Car:
+    def __init__(self, make, model):
+        self.__make = make  # Private attribute
+        self.__model = model  # Private attribute
+
+    def display_info(self):
+        print("Make:", self.__make)
+        print("Model:", self.__model)
+
+    # Getter methods to access private attributes
+    def get_make(self):
+        return self.__make
+
+    def get_model(self):
+        return self.__model
+
+    # Setter methods to modify private attributes
+    def set_make(self, make):
+        self.__make = make
+
+    def set_model(self, model):
+        self.__model = model
+Explanation:
+In the Car class:
+self.__make and self.__model are private attributes. These are not directly accessible from outside the class.
+The display_info() method is a public method that prints the car's make and model.
+Getter methods (get_make() and get_model()) allow external access to private attributes in a controlled manner.
+Setter methods (set_make() and set_model()) provide controlled modification of private attributes.
+Usage Example:
+python
+Copy code
+# Creating a Car object
+my_car = Car("Toyota", "Corolla")
+
+# Accessing private attributes through getter methods
+print("Car Make:", my_car.get_make())  # Output: Car Make: Toyota
+print("Car Model:", my_car.get_model())  # Output: Car Model: Corolla
+
+# Modifying private attributes through setter methods
+my_car.set_make("Honda")
+my_car.set_model("Civic")
+
+# Display updated car information
+my_car.display_info()
+# Output:
+# Make: Honda
+# Model: Civic
+Key Points:
+Private Attributes: In the Car class, the __make and __model attributes are private, meaning they can't be accessed directly from outside the class.
+Getter Methods: Methods like get_make() and get_model() allow us to access these private attributes indirectly.
+Setter Methods: Methods like set_make() and set_model() allow modification of the private attributes.
+Benefits of Using Encapsulation Here:
+Controlled Access: We can't directly modify __make or __model from outside the class, ensuring that changes to the car's make or model are always done through the setter methods, which can contain validation logic (if necessary).
+Data Integrity: If we want to add validation (for example, ensuring that the make is a valid string or the model is a valid year), we can do so within the setter methods.
+Additional Example with Validation in Setter:
+python
+Copy code
+class Car:
+    def __init__(self, make, model):
+        self.__make = make
+        self.__model = model
+
+    def display_info(self):
+        print("Make:", self.__make)
+        print("Model:", self.__model)
+
+    def get_make(self):
+        return self.__make
+
+    def get_model(self):
+        return self.__model
+
+    def set_make(self, make):
+        if isinstance(make, str) and len(make) > 0:
+            self.__make = make
+        else:
+            print("Invalid make!")
+
+    def set_model(self, model):
+        if isinstance(model, str) and len(model) > 0:
+            self.__model = model
+        else:
+            print("Invalid model!")
+Example of Validation:
+python
+Copy code
+my_car = Car("Toyota", "Corolla")
+my_car.set_make("")  # Output: Invalid make!
+my_car.set_model("2023")  # Correct
+my_car.display_info()
+# Output:
+# Make: Toyota
+# Model: 2023
+In this version, the setter methods also perform basic validation to ensure that the make and model are valid before assigning them.
+
+Summary of Encapsulation:
+Encapsulation allows for the hiding of internal state (attributes) and ensures that the object’s data can only be accessed or modified in a controlled way.
+Private and public methods are used to ensure that certain internal operations (like data manipulation) happen through defined channels, preventing direct manipulation of the internal state.
+Getters and Setters are used to access and modify private attributes, and validation can be added inside setter methods to maintain data integrity.
